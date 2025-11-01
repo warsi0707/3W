@@ -6,11 +6,12 @@ const postRouter = require('./routes/post')
 const app = express()
 const cors = require('cors')
 const path = require('path')
+const { FRONTEND_URL } = require('./config/Config')
 
 ConnectDB()
 
 app.use(cors({
-    origin: "http://localhost:5173"
+    origin: FRONTEND_URL
 }))
 app.use(express.static(path.join(__dirname,"frontend","dist")))
 app.use(express.json())
