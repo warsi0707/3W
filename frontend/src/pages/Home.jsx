@@ -19,7 +19,7 @@ export default function Home(){
         <div className="min-h-screen w-full p-4 py-32 lg:px-40 flex flex-col gap-5">
             <PostInputCard/>
             <div className="flex flex-wrap justify-between gap-5">
-                {posts.map((post)=> (
+                {posts && posts.map((post)=> (
                      <Card key={post._id} post={post} handleLikePost={()=> handleLikePost(post._id)}/>
                 ))}
             </div>

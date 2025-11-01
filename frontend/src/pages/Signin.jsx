@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import LoginInput from "../components/LoginInput";
 import {useDispatch} from "react-redux"
 import { useState } from "react";
@@ -9,13 +9,15 @@ export default function Signin(){
     const dispatch = useDispatch()
     const [email, setEmail]=useState("")
     const [password, setPassword] = useState("")
+    const navigate = useNavigate()
     
       const goBack =()=>{
         window.history.back()
       }
 
-    const handleSignupBtn =()=>{
+    const handleSigninBtn =()=>{
         dispatch(handleSignin({email, password}))
+        navigate("/")
     }
     return (
         <div className=" w-full min-h-screen flex flex-col gap-5 py-32 px-10 md:p-32">
@@ -33,7 +35,7 @@ export default function Signin(){
                 <div>
                     <div>Haven't an account? <Link to={"/signup"} className="underline hover:text-blue-500">Register</Link></div>
                 </div>
-                <button onClick={handleSignupBtn} className="w-full bg-red-400 p-2 text-white rounded-md cursor-pointer">Signin</button>
+                <button onClick={handleSigninBtn} className="w-full bg-red-400 p-2 text-white rounded-md cursor-pointer">Signin</button>
             </div>
             </div>
         </div>

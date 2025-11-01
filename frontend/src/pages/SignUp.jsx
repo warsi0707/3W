@@ -1,7 +1,20 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import LoginInput from "../components/LoginInput";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { handleSignup } from "../redux/slice/authSlice";
+import PasswordInput from "../components/PasswordInput";
 
 export default function SignUp() {
+    const dispatch = useDispatch()
+    const [email, setEmail]=useState("")
+    const [password, setPassword] = useState("")
+    const [username, setUsername] = useState("")
+    const navigate = useNavigate()
+    const handleSignUp =()=>{
+        dispatch(handleSignup({email, password, username}))
+        navigate("/signin")
+    }
      const goBack =()=>{
         window.history.back()
       }
@@ -15,14 +28,14 @@ export default function SignUp() {
             <div className="w-full h-full mt-10 flex flex-col gap-5 bg-slate-100 rounded-md p-5">
                 <h1 className="text-2xl">Create a new account</h1>
                 <div className="w-full flex flex-col gap-2  ">
-                    <LoginInput/>
-                    <LoginInput/>
-                    <LoginInput/>
+                    <LoginInput values={username} onchange={(e)=> setUsername(e.target.value)} label={"Username"} placeholder={"user"}/>
+                    <LoginInput values={email} onchange={(e)=> setEmail(e.target.value)} label={"Email"} placeholder={"user@gmail.com"}/>
+                    <PasswordInput values={password} onchange={(e)=> setPassword(e.target.value)}/>
                 </div>
                 <div>
                     <div>Already have an account? <Link to={"/signin"} className="underline hover:text-blue-500">Singin</Link></div>
                 </div>
-                <button className="w-full bg-red-400 p-2 text-white rounded-md cursor-pointer">Signup</button>
+                <button onClick={handleSignUp} className="w-full bg-red-400 p-2 text-white rounded-md cursor-pointer">Signup</button>
             </div>
             </div>
         </div>

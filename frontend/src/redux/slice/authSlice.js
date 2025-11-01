@@ -2,19 +2,18 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { BackendUrl } from "../../utils/Backendurl";
 import {toast} from "react-hot-toast"
 
-export const handleSignup = createAsyncThunk("fetch/signup", async(payload, {rejectWithValue})=>{
+export const handleSignup = createAsyncThunk("fetch/signup", async({username, email, password}, {rejectWithValue})=>{
     try{
-
         const response = await fetch(`${BackendUrl}/user/signup`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({payload})
+            body: JSON.stringify({username, email, password})
         })
         const result = await response.json()
         if(response.status ==200){
-            toast.success(result.success)
+            toast.success(result.message)
             return result;
         }else{
             toast.error(result.error)

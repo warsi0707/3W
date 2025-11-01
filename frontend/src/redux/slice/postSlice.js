@@ -19,6 +19,9 @@ export const handleGetPosts = createAsyncThunk("fetch/posts", async(payload, {re
 })
 export const handlePosts =createAsyncThunk("fetch/uploadPosts", async({title, text, image}, {rejectWithValue})=>{
     try{
+        if(!title || !text && !image){
+            toast.error("Input required")
+        }
         const response = await fetch(`${BackendUrl}/post`, {
             method: 'POST',
             headers: {
